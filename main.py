@@ -16,8 +16,13 @@ def receiver():
 
     if volume is not None:
         with eiscp.eISCP(ip) as receiver:
-            receiver.command('volume ' + volume)
-            text = 'Volume ' + volume + '!'
+            floatVolume = float(volume)
+            if floatVolume < 80:
+                volume = '0' + volume
+                intVolume = int(floatVolume)
+                strVolume = str(intVolume)
+                receiver.command('volume ' + strVolume)
+                text = 'Volume ' + strVolume + '!'
     if power == "on":
         with eiscp.eISCP(ip) as receiver:
             receiver.command('power on')
@@ -29,4 +34,4 @@ def receiver():
     return jsonify({'message': text})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
