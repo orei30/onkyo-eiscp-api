@@ -31,6 +31,7 @@ def receiver():
         with eiscp.eISCP(ip) as receiver:
             receiver.command('power off')
             text = 'Power OFF!'
+    print(text)
     return jsonify({'message': text})
 
 if __name__ == '__main__':
